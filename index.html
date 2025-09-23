@@ -4,7 +4,7 @@
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Peasant Character Generator</title>
         <style>
-            body { font-family: sans-seif; margin: 20px; background: #f4f4f9; }
+            body { font-family: sans-serif; margin: 20px; background: #f4f4f9; }
             h1 { text-align: center; }
             .controls { text-align: center; margin-bottom: 20px; }
             button { padding: 10px 15px; margin: 5px; cursor: pointer; border-radius: 6px; }
@@ -21,8 +21,16 @@
         </style>
     </head>
     <body>
+          <!-- Navigation -->
+        <nav>
+        <ul>
+            <li><a href="index.html">Characters</a></li>
+            <li><a href="campaign.html">Campaign Hook</a></li>
+            <li><a href="rules.html">Player Guide</a></li>
+        </ul>
+        </nav>
 
-        <h1>Peasant Character Generator</h1>
+        <h1>Peasant Generator</h1>
         <div class="controls">
             <button onclick="generateCharacter()">Generate Peasant</button>
             <button onclick="exportPDF()">Export to PDF</button>
@@ -58,157 +66,157 @@
             };
             const occupations = {
                 "Actor": {equipment: [
-                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile"}, 
+                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile", damageType: "slashing"}, 
                     {name: "disguise kit", type: "tool"},
                     {name: "set of assorted wigs", type: "tool"}]},
                 "Alchemist's Apprentice": {equipment: [
-                    {name: "Vials of explosive liquid", ammo: 4, type: "weapon", ability: "Dexterity", range: "20 feet", damage: "1d4"},
+                    {name: "Vials of explosive liquid", ammo: 4, type: "weapon", ability: "Dexterity", range: "20 feet", damage: "1d4", damageType: "fire"},
                     {name: "spell component pouch", type: "tool"}]}, 
                 "Astrologer": {equipment: [
-                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile"},
+                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile", damageType: "bludgeoning"},
                     {name: "pocket telescope", type: "tool"}]}, 
                 "Big-game hunter": {equipment: [
-                    {name: "Longbow", ammo: 20, type: "weapon", ability: "Dexterity", range: "150/600 feet", damage: "1d8"},
+                    {name: "Longbow", ammo: 20, type: "weapon", ability: "Dexterity", range: "150/600 feet", damage: "1d8", damageType: "piercing"},
                     {name: "pelt of an unusual creature", type: "flavor"}]},  
                 "Blacksmith": {equipment: [
-                    {name: "Hammer", type: "weapon", ability: "Strength", damage: "1d4"}, 
+                    {name: "Hammer", type: "weapon", ability: "Strength", damage: "1d4", damageType: "bludgeoning"}, 
                     {name: "smith's tools", type: "tool"}]}, 
                 "Brewer": {equipment: [
-                    {name: "Huge metal spoon", type: "weapon", ability: "Strength", damage: "1d6"}, 
+                    {name: "Huge metal spoon", type: "weapon", ability: "Strength", damage: "1d6", damageType: "bludgeoning"}, 
                     {name: "cask of ale", type: "flavor"}]},
                 "Burglar": {equipment: [
-                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d6"},
+                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d6", damageType: "bludgeoning"},
                     {name: "50 feet of hempen rope", type: "equipment"}]},
                 "Busker": {equipment: [
-                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"]},
+                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"], damageType: "piercing"},
                     {name: "lute", type: "instrument"}]},
                 "Butcher": {equipment: [
-                    {name: "Cleaver", type: "weapon", ability: "Strength", damage: "1d6"},
+                    {name: "Cleaver", type: "weapon", ability: "Strength", damage: "1d6", damageType: "slashing"},
                     {name: "assorted bones", type: "flavor"}]},
                 "Candle lighter": {equipment: [
-                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4"}, 
+                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4", damageType: "bludgeoning"}, 
                     "flint and steel"]},
                 "Church usher": {equipment: [
-                    {name: "Cudgel", type: "weapon", ability: "Strength", damage: "1d4"}, 
+                    {name: "Cudgel", type: "weapon", ability: "Strength", damage: "1d4", damageType: "bludgeoning"}, 
                     {name: "fine robes", type: "clothing"}]},
                 "Circus performer": {equipment: [
-                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile"},
+                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile", damageType: "bludgeoning"},
                     {name: "100 feet of hempen rope", type: "equipment"}]},
                 "Confidence artist": {equipment: [
-                    {name: "Dagger", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Dagger", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "set of cups and balls", type: "flavor"}]},
                 "Cooper": {equipment: [
-                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d4"}, 
+                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d4", damageType: "bludgeoning"}, 
                     {name: "empty barrel", type: "flavor"}]},
                 "Court jester": {equipment: [
-                    {name: "Sling", ammo: 10, type: "weapon", ability: "Dexterity", range: "30/120 feet", damage: "1d4"}, 
+                    {name: "Sling", ammo: 10, type: "weapon", ability: "Dexterity", range: "30/120 feet", damage: "1d4", damageType: "bludgeoning"}, 
                     {name: "set of heavy juggling balls", type: "flavor"}]},
                 "Farmer": {equipment: [
-                    {name: "Pitchfork", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown"]},
+                    {name: "Pitchfork", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60 feet)"], damageType: "piercing"},
                     {name: "riding horse or woodworker's tools", type: "tools"}]},
                 "Field hand": {equipment: [
-                    {name: "Sickle", type: "weapon", ability: "Strength", damage: "1d4", properties: "light"},
+                    {name: "Sickle", type: "weapon", ability: "Strength", damage: "1d4", properties: "light", damageType: "slashing"},
                     {name: "bag of grain", type: "flavor"}]},
                 "Gravedigger": {equipment: [
-                    {name: "Shovel", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile"},
+                    {name: "Shovel", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile", damageType: "bludgeoning"},
                     {name: "large sack", type: "flavor"}]},
                 "Grocer": {equipment: [
-                    {name: "Knife", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile"},
+                    {name: "Knife", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile", damageType: "piercing"},
                     {name: "small set of brass scales", type: "flavor"}]},
                 "Healer": {equipment: [
-                    {name: "Scepter", type: "weapon", ability: "Strength", damage: "1d6"},
+                    {name: "Scepter", type: "weapon", ability: "Strength", damage: "1d6", damageType: "bludgeoning"},
                     {name: "holy water", type: "flavor"}]},
                 "Herbalist": {equipment: [
-                    {name: "Sling", ammo: 10, type: "weapon", ability: "Dexterity", range: "30/120 feet", damage: "1d4"}, 
+                    {name: "Sling", ammo: 10, type: "weapon", ability: "Dexterity", range: "30/120 feet", damage: "1d4", damageType: "bludgeoning"}, 
                     {name: "pouch of herbs", type: "flavor"}]},
                 "Jeweler": {equipment: [
-                    {name: "Small rock pick", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60)"]},
+                    {name: "Small rock pick", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60 feet)"], damageType: "slashing"},
                     {name: "assorted gemstones worth 20sp", type: "flavor"}]},
                 "Lighthouse keeper": {equipment: [
-                    {name: "Spear", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60)"]},
+                    {name: "Spear", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60 feet)"], damageType: "piercing"},
                     {name: "hooded lantern", type: "equipment"},
                     {name: "flask of oil", type: "equipment"}]},
                 "Locksmith": {equipment: [
-                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d6"},
+                    {name: "Crowbar", type: "weapon", ability: "Strength", damage: "1d6", damageType: "bludgeoning"},
                     {name: "set of lockpicks", type: "equipment"}]},
                 "Lumberjack": {equipment: [
-                    {name: "Handaxe", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60)"]},
+                    {name: "Handaxe", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60 feet)"], damageType: "slashing"},
                     {name: "10-foot pole", type: "flavor"}]},
                 "Mage's apprentice": {equipment: [
-                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile"},
+                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: "versatile", damageType: "bludgeoning"},
                      "spell scroll of minor illusion"]}, 
                 "Man-at-arms": {equipment: [
-                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile"},
+                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile", damageType: "slashing"},
                     {armor: {desc: "chain shirt", type: "medium", base: 13}}]},
                 "Mercenary": {equipment: [
-                    {name: "Shortbow", ammo: 20, type: "weapon", ability: "Dexterity", range: "80/230 feet", damage: "1d6"},
+                    {name: "Shortbow", ammo: 20, type: "weapon", ability: "Dexterity", range: "80/230 feet", damage: "1d6", damageType: "piercing"},
                     {armor: {desc: "leather armor", type: "light", base: 11}}]}, 
                 "Militia officer": {equipment: [
-                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile"},
+                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, properties: "versatile", damageType: "slashing"},
                     {armor: {desc: "buckler shield", type: "shield"}}]},
                 "Navigator": {equipment: [
-                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"]},
+                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"], damageType: "piercing"},
                     {name: "scroll case containing nautical charts", type: "flavor"}]},
                 "Net maker": {equipment: [
-                    {name: "Knife", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Knife", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "net", type: "equipment"}]},
                 "Noble": {equipment: [
-                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}},
+                    {name: "Longsword", type: "weapon", ability: "Strength", damage: {oneHand: "1d8", twoHand: "1d10"}, damageType: "slashing"},
                     {name: "gold amulet worth 10 gp", type: "flavor"}]},
                 "Pickpocket": {equipment: [
-                    {name: "Dagger", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Dagger", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "disguise kit", type: "equipment"}]},
                 "Pie maker": {equipment: [
-                    {name: "Cleaver", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60)"]},
+                    {name: "Cleaver", type: "weapon", ability: "Strength", damage: "1d6", properties: ["light", "thrown (range 20/60 feet)"], damageType: "slashing"},
                     {name: "two bags of flour", type: "flavor"}]},
                 "Pit-fighting champion": {equipment: [
-                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4", properties: ["light"]},
+                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4", properties: ["light"], damageType: "bludgeoning"},
                     {name: "10 feet of chain", type: "equipment"}]},
                 "Priest": {equipment: [
-                    {name: "Mace", type: "weapon", ability: "Strength", damage: "1d6"},
+                    {name: "Mace", type: "weapon", ability: "Strength", damage: "1d6", damageType: "bludgeoning"},
                     {name: "Sacred Flame spell scroll", type: "scroll"}]},
                 "Scribe": {equipment: [
-                    {name: "Quill knife", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Quill knife", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "10 sheets of parchment", type: "flavor"}]},
                 "Sculptor": {equipment: [
-                    {name: "Chisel", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Chisel", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "bag filled with clay", type: "flavor"}]},
                 "Snitch": {equipment: [
-                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4", versatile: false}, 
+                    {name: "Club", type: "weapon", ability: "Strength", damage: "1d4", versatile: false, damageType: "bludgeoning"}, 
                     {name: "ragged cloak", type: "clothing"}]},
                 "Soldier": {equipment: [
-                    {name: "Spear"}, 
+                    {name: "Spear", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60 feet)"], damageType: "piercing"}, 
                     {armor: {desc: "hide armor", type: "medium", base: 12}}]},
                 "Soothsayer": {equipment: [
-                    {name: "Hand-carved bone club", type: "weapon", ability: "Strength", damage: "1d4", versatile: false}, 
+                    {name: "Hand-carved bone club", type: "weapon", ability: "Strength", damage: "1d4", versatile: false, damageType: "bludgeoning"}, 
                     {name: "divination items", type: "flavor"}]},
                 "Squire": {equipment: [
-                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"]},
+                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"], damageType: "piercing"},
                     {name: "fine clothes", type: "clothing"}]},
                 "Statue polisher": {equipment: [
-                    {name: "Chisel", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Chisel", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "portable ladder", type: "equipment"}]},
                 "Tavern bouncer": {equipment: [
-                    {name: "Cudgel", type: "weapon", ability: "Strength", damage: "1d4", versatile: false}, 
+                    {name: "Cudgel", type: "weapon", ability: "Strength", damage: "1d4", versatile: false, damageType: "bludgeoning"}, 
                     {armor: {desc: "padded armor", type: "light", base: 11}}]},
                 "Tax collector": {equipment: [
-                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"]},
+                    {name: "Shortsword", type: "weapon", ability: "Strength", damage: "1d6", properties: ["finesse", "light"], damageType: "piercing"},
                     {name: "50 cp", type: "wealth"}]},
                 "Town guard": {equipment: [
-                    {name: "Morningstar", type: "weapon", ability: "Strength", damage: "1d4", property: "versatile"}, 
+                    {name: "Morningstar", type: "weapon", ability: "Strength", damage: "1d4", property: "versatile", damageType: "bludgeoning"}, 
                     {armor: {desc: "buckler shield", type: "shield"}}]},
                 "Urchin": {equipment: [
-                    {name: "Crude shank", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60)"]},
+                    {name: "Crude shank", type: "weapon", ability: "Strength", damage: "1d4", properties: ["finesse", "light", "thrown (range 20 / 60 feet)"], damageType: "piercing"},
                     {name: "begging bowl", type: "flavor"}]},
                 "Vagabond": {equipment: [
-                    {name: "Big branch", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, versatile: true},
+                    {name: "Big branch", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, versatile: true, damageType: "bludgeoning"},
                     {name: "winter blanket", type: "equipment"}]},
                 "Wandering mystic": {equipment: [
-                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, versatile: true},
+                    {name: "Quarterstaff", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, versatile: true, damageType: "bludgeoning"},
                     {name: "spell scroll of shocking grasp", type: "scroll"},
                     {name: "gold amulet worth 10 gp", type: "flavor"}]},
                 "Whaler": {equipment: [
-                    {name: "Boarding knife", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60)"]},
+                    {name: "Boarding knife", type: "weapon", ability: "Strength", damage: {oneHand: "1d6", twoHand: "1d8"}, properties: ["versatile", "thrown (range 20/60 feet)"], damageType: "piercing"},
                     {name: "scrimshaw octopus", type: "flavor"}]},
             };
             const trinkets = [
@@ -234,24 +242,24 @@
                 "A fine walking stick, banded with black iron and carved with strange runes."];
 
             const defaultSkills = [
-                "Acrobatics",        // Dex
-                "Animal Handling",   // Wis
-                "Arcana",            // Int
-                "Athletics",         // Str
-                "Deception",         // Cha
-                "History",           // Int
-                "Insight",           // Wis
-                "Intimidation",      // Cha
-                "Investigation",     // Int
-                "Medicine",          // Wis
-                "Nature",            // Int
-                "Perception",        // Wis
-                "Performance",       // Cha
-                "Persuasion",        // Cha
-                "Religion",          // Int
-                "Sleight of Hand",   // Dex
-                "Stealth",           // Dex
-                "Survival"           // Wis
+                {name: "Acrobatics", ability: "Dexterity"},
+                {name: "Animal Handling", ability: "Wisdom"},
+                {name: "Arcana", ability: "Intelligence"},
+                {name: "Athletics", ability: "Strength"},
+                {name: "Deception", ability: "Charisma"},
+                {name: "History", ability: "Intelligence"},
+                {name: "Insight", ability: "Wisdom"},
+                {name: "Intimidation", ability: "Charisma"},
+                {name: "Investigation", ability: "Intelligence"},
+                {name: "Medicine", ability: "Wisdom"},
+                {name: "Nature", ability: "Intelligence"},
+                {name: "Perception", ability: "Wisdom"},
+                {name: "Performance", ability: "Charisma"},
+                {name: "Persuasion", ability: "Charisma"},
+                {name: "Religion", ability: "Intelligence"},
+                {name: "Sleight of Hand", ability: "Dexterity"},
+                {name: "Stealth", ability: "Dexterity"},
+                {name: "Survival", ability: "Wisdom"},
                 ];
             // Dice rollers
             function rollDie(sides) {
@@ -386,14 +394,15 @@
 
                 // 1) Unarmed strike (always Strength)
                 const unarmedMod = modifier(STR);
+                const baseUnarmed = 1;
+                const unarmedDamage = Math.max(1, baseUnarmed + unarmedMod);
                 attacks.push({
                     name: "Unarmed Strike",
                     toHit: proficiency + unarmedMod,
-                    damageDice: "1", // simple 1 base damage for unarmed in this system
+                    damageDice: null, // simple 1 base damage for unarmed in this system
                     damageMod: unarmedMod,
-                    damageText: `1 ${unarmedMod >= 0 ? `+ ${unarmedMod}` : `- ${Math.abs(unarmedMod)}`} Str damage`,
-                    abilityUsed: "Strength",
-                    notes: "unarmed"
+                    damageText: `${unarmedDamage} bludgeoning damage`,
+                    abilityUsed: "Strength"
                 });
 
                 // 2) Weapons from equipment (skip non-weapons)
@@ -414,7 +423,7 @@
                     // pick damage dice (string) — support "damage" as string or object { oneHand, twoHand }
                     let damageDice = "1";
                     if (typeof item.damage === "string") {
-                    damageDice = item.damage;
+                        damageDice = item.damage;
                     } else if (item.damage && typeof item.damage === "object") {
                     if (item.versatile && options.useTwoHanded) {
                         damageDice = item.damage.twoHand || item.damage.oneHand || "1";
@@ -423,8 +432,11 @@
                     }
                     }
 
+                    // include damage type
+                    const damageType = item.damageType || "bludgeoning";
+
                     // build display text for damage
-                    const damageText = `${damageDice} ${mod >= 0 ? `+ ${mod}` : `- ${Math.abs(mod)}`} ${abilityUsed.slice(0,3)} damage`;
+                    const damageText = `${damageDice} ${mod >= 0 ? `+ ${mod}` : `- ${Math.abs(mod)}`} ${damageType} damage`;
 
                     // notes: include properties (except finesse which we've used), mention versatile handedness
                     const props = Array.isArray(item.properties) ? item.properties.filter(p => p !== "finesse") : [];
@@ -462,8 +474,16 @@
                 const occupationName = randomChoice(Object.keys(occupations));
                 const occupation = occupations[occupationName];
                 const abilities = rollAbilities();
+                const skills = defaultSkills.map(s => {
+                    const baseMod = modifier(abilities[s.ability]); // ability modifier
+                    return {
+                        name: s.name,
+                        ability: s.ability,
+                        modifier: baseMod,
+                    };
+                    });
                 const proficiencyBonus = 2;
-                const hp = rollDie(4) + modifier(abilities.Constitution);
+                const hp = Math.max(1, rollDie(4) + modifier(abilities.Constitution));
                 const ac = calculateAC(abilities, occupation.equipment);
                 const attacks = generateAttacks(occupation.equipment, abilities, proficiencyBonus);
 
@@ -472,7 +492,11 @@
                     ancestry: ancestryName,
                     occupation: occupationName,
                     abilities,
-                    skills: defaultSkills.map(s => ({ name: s, proficient: false })),
+                    skills: defaultSkills.map(s => ({
+                        name: s.name,
+                        ability: s.ability,
+                        proficient: false
+                    })),
                     proficiencyBonus,
                     hp,
                     ac,
@@ -489,6 +513,12 @@
                 const nameHeader = document.createElement("h2");
                 nameHeader.textContent = character.name;
                 charDiv.appendChild(nameHeader);
+
+                // Ancestry + Occupation (subtitle)
+                const subtitle = document.createElement("h3");
+                subtitle.className = "char-subtitle";
+                subtitle.textContent = `${character.ancestry}, ${character.occupation}`;
+                charDiv.appendChild(subtitle);
 
                 // Stats row
                 const statsDiv = document.createElement("div");
@@ -539,11 +569,22 @@
                     const box = document.createElement("div");
                     box.className = "skill-box";
 
+                     // Checkbox
                     const cb = document.createElement("input");
                     cb.type = "checkbox";
                     cb.dataset.skill = skill.name;
                     box.appendChild(cb);
-                    box.appendChild(document.createTextNode(` ${skill.name}`));
+                    
+                    // skill modifier (ignore proficiency)
+                    const abilityScore = character.abilities[skill.ability];
+                    const mod = modifier(abilityScore);
+
+                    // text with bonus
+                    const label = document.createTextNode(
+                        ` ${skill.name} (${mod >= 0 ? "+" : ""}${mod})`
+                    );
+                    box.appendChild(label);
+
                     skGrid.appendChild(box);
                 });
                 skillsDiv.appendChild(skGrid);
@@ -568,8 +609,12 @@
                 charDiv.appendChild(atkDiv);
 
                 // Trinket
+                const trktHeader = document.createElement("h3");
+                trktHeader.textContent = "Trinket";
+                atkDiv.appendChild(trktHeader);
                 const trinketEl = document.createElement("p");
-                trinketEl.textContent = `Trinket: ${character.trinket}`;
+                const li = document.createElement("li");
+                trinketEl.textContent = `${character.trinket}`;
                 charDiv.appendChild(trinketEl);
 
                 container.appendChild(charDiv);
@@ -619,4 +664,3 @@
         </script>
     </body>
 </html>
-
